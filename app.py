@@ -1,7 +1,12 @@
-from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from socketserver import ThreadingMixIn
 from urllib.parse import urlparse
 import csv, io, json, os, re
 from collections import defaultdict, Counter
+
+class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SAMPLE = os.path.join(ROOT, "data", "sample-route.csv")
